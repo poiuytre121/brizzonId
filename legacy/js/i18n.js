@@ -36,8 +36,7 @@ const i18n = {
             attempt: 'Attempt'
         },
         assignments: {
-            in_event: 'in event',
-
+            notice: 'Notice that group starting times are indicative, please check competition schedule and try to be present at the venue few minutes before start of each activity.'
         }
     },
     pl: {
@@ -74,6 +73,9 @@ const i18n = {
             round: 'Runda',
             group: 'Grupa',
             attempt: 'Próba'
+        },
+        assignments: {
+            notice: 'Pamiętaj, że godziny poszczególnych grup są orientacyjne, sprawdź harmonogram zawodów i postaraj się być na sali kilka minut przed rozpoczęciem każdej z aktywności.'
         }
     }
 }

@@ -78,6 +78,7 @@ const IdRenderer = function (competitionId) {
                 html += `<p style="background: #2e588322;padding: 3px; margin: 1px 0"><span style="margin-right: 5px; font-size: 14px" class="cubing-icon event-${activity.activity.activityCode.split('-')[0]}"></span>${start} ${this.getRoleTranslation(activity.role, competitor, lang)} ${this.getActivityCodeTranslation(activity.activity.activityCode, lang)}</p>`
             })
         })
+        html += `<p style="position: absolute; bottom: 5px; left: 0; right: 0; text-align: center; font-size: 8px">${i18n[lang].assignments.notice}</p>`;
         return html;
     }
 
