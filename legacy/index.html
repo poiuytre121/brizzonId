@@ -70,6 +70,15 @@
             bottom: 3mm;
         }
 
+        .logo-bg {
+            position: absolute;
+            top: 3mm;
+            bottom: 3mm;
+            left: 3mm;
+            right: 3mm;
+            padding: 0 10px;
+        }
+
         .logo-bg::after {
             background: url("logo1.png") no-repeat center;
             content: '';
@@ -99,91 +108,16 @@
             text-align: center;
         }
     </style>
+    <script src="js/i18n.js"></script>
+    <script src="js/classes/PersonalScheduleGenerator.js"></script>
+    <script src="js/classes/IdRenderer.js"></script>
 
 </head>
 <body>
 <div class="container">
     <script>
-        function createCard(competitor) {
-            const lang = competitor.countryIso2 === 'PL' ? 'pl' : 'en';
-            let roles = ['competitor_' + competitor.gender.toLowerCase()];
-            roles.push(...competitor.roles);
-            const rolesTexts = roles.map(function (role) {
-                return i18n[lang].roles[role];
-            });
-            return `<div class="id-card">
-            <div class="logo-bg">
-                <div style="text-align: center; padding-top: 5px"><img src="logo1.png" class="logo"></div>
-                <h1 style="font-size: 24px; text-align: center; font-family: apex; margin: 0 0 10px 0">BrizZon Sylwester Open 2021</h1>
-                <div style="display: flex; align-items: center; justify-content: space-around; padding: 5px 0">
-                    <div><p class="name" style="font-size: 28px; margin: 5px 0">${competitor.name}</p></div>
-                </div>
-                <div><p style="text-align: center; font-size: 20px" ">${rolesTexts.join(' / ')}</p></div>
-                <h3 style="font-weight: 800; font-size: 12px; text-align: center; margin-bottom: 0">${i18n[lang].events.label}</h3>
-                <div class="events">
-                    ${competitor.registration.eventIds.map(id => `<span class="cubing-icon event-${id}"></span>`).join(' ')}
-                </div>
-                <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; margin-top: 10px">
-                    <img src="brizzon.png" class="partner-logo">
-                    <img src="halcube.png" class="partner-logo">
-                    <img src="speedcube.jpeg" class="partner-logo">
-                    <img src="quay.png" class="partner-logo">
-                    <img src="pss.png" class="partner-logo">
-                    <img src="wca.png" class="partner-logo">
-                </div>
-                <p style="text-align: center; font-size: 16px; margin: 0">Poznań</p>
-                <p style="text-align: center; font-size: 16px; margin: 0; font-weight: 300">12-14.11.2021</p>
-            </div>
-        </div>
-        <div class="id-card">
-            <div class="logo-bg">
-                <p>WCA ID: ${competitor.wcaId}</p>
-            </div>
-        </div>`;
-        }
-        const i18n = {
-            en: {
-                roles: {
-                    competitor_m: 'Competitor',
-                    competitor_f: 'Competitor',
-                    delegate: 'WCA Delegate',
-                    organizer: 'Organizer',
-                    "score-taker": "Score-taker",
-                    "staff-dataentry": "Score-taker",
-                    "staff-judge": "Judge",
-                    "staff-scrambler": "Scrambler",
-                    "staff-other": "Staff",
-                },
-                events: {
-                    label: 'Events'
-                }
-            },
-            pl: {
-                roles: {
-                    competitor_m: 'Zawodnik',
-                    competitor_f: 'Zawodniczka',
-                    delegate: 'Delegat WCA',
-                    organizer: 'Organizator',
-                    "staff-dataentry": "Rejestrator",
-                    "staff-judge": "Sędzia",
-                    "staff-scrambler": "Mieszacz",
-                    "staff-other": "Staff",
-                },
-                events: {
-                    label: 'Konkurencje'
-                }
-            }
-        }
-        fetch('https://www.worldcubeassociation.org/api/v0/competitions/BrizzonSylwesterOpen2021/wcif/public')
-            .then(r => r.json())
-            .then(res => {
-
-                let container = document.querySelector(".container");
-                for (let i = 0; i < res.persons.length; i++) {
-                    res.persons[i].role = 'Zawodnik'
-                    container.innerHTML = container.innerHTML + createCard(res.persons[i]);
-                }
-            })
+        const renderer = new IdRenderer('BrizzonSideOpenIII2021');
+        renderer.renderIds();
     </script>
 </div>
 </body>
