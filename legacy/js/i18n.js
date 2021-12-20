@@ -9,6 +9,7 @@ const i18n = {
             "staff-dataentry": "Score-taker",
             "staff-judge": "Judge",
             "staff-scrambler": "Scrambler",
+            "staff-runner": "Runner",
             "staff-other": "Staff",
         },
         events: {
@@ -48,6 +49,7 @@ const i18n = {
             "staff-dataentry": "Rejestrator",
             "staff-judge": "Sędzia",
             "staff-scrambler": "Mieszacz",
+            "staff-runner": "Biegacz",
             "staff-other": "Staff",
         },
         events: {
