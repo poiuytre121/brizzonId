@@ -116,7 +116,9 @@
 <body>
 <div class="container">
     <script>
-        const renderer = new IdRenderer('BrizzonSideOpenIII2021');
+        const queryParam = (new URLSearchParams(window.location.search)).get('id');
+        const competitionId = queryParam ? queryParam : 'BrizzonSideOpenIII2021';
+        const renderer = new IdRenderer(competitionId);
         renderer.renderIds();
     </script>
 </div>

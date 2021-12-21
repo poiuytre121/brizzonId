@@ -2,17 +2,19 @@ const IdRenderer = function (competitionId) {
 
     this.competitionId = competitionId;
     this.generator = null;
-    this.wcif = null
+    this.wcif = null;
+    this.competitionData = null;
     this.renderIds = function () {
-        fetch(`https://www.worldcubeassociation.org/api/v0/competitions/${this.competitionId}/wcif/public`)
-            .then(r => r.json())
+        Promise.all([fetch(`https://www.worldcubeassociation.org/api/v0/competitions/${this.competitionId}/wcif/public`)
+            .then(r => r.json()), fetch(`https://www.worldcubeassociation.org/api/v0/competitions/${this.competitionId}`)
+            .then(r => r.json())])
             .then(res => {
-                this.wcif = res;
+                this.wcif = res[0];
+                this.competitionData = res[1];
                 let container = document.querySelector(".container");
-                this.generator = new PersonalScheduleGenerator(res);
-                for (let i = 0; i < res.persons.length; i++) {
-                    res.persons[i].role = 'Zawodnik'
-                    container.innerHTML = container.innerHTML + this.createCard(res.persons[i]);
+                this.generator = new PersonalScheduleGenerator(this.wcif);
+                for (let i = 0; i < this.wcif.persons.length; i++) {
+                    container.innerHTML = container.innerHTML + this.createCard(this.wcif.persons[i]);
                 }
             })
     }
@@ -32,7 +34,7 @@ const IdRenderer = function (competitionId) {
                 <div style="text-align: center; padding-top: 5px"><img src="logo1.png" class="logo"></div>
                 <h1 style="font-size: 24px; text-align: center; font-family: apex; margin: 0 0 10px 0">${this.wcif.name}</h1>
                 <div style="display: flex; align-items: center; justify-content: space-around; padding: 5px 0">
-                    <div><p class="name" style="font-size: 28px; margin: 5px 0">${competitor.name}</p></div>
+                    <div><p class="name" style="font-size: 28px; margin: 5px 0; text-align: center">${competitor.name}</p></div>
                 </div>
                 <div><p style="text-align: center; font-size: 20px" ">${rolesTexts.join(' / ')}</p></div>
                 <h3 style="font-weight: 800; font-size: 12px; text-align: center; margin-bottom: 0">${i18n[lang].events.label}</h3>
@@ -47,8 +49,8 @@ const IdRenderer = function (competitionId) {
                     <img src="pss.png" class="partner-logo">
                     <img src="wca.png" class="partner-logo">
                 </div>
-                <p style="text-align: center; font-size: 16px; margin: 0">Poznań</p>
-                <p style="text-align: center; font-size: 16px; margin: 0; font-weight: 300">12-14.11.2021</p>
+                <p style="text-align: center; font-size: 16px; margin: 0">${this.competitionData.city}</p>
+                <p style="text-align: center; font-size: 16px; margin: 0; font-weight: 300">${this.renderCompetitionDate()}</p>
             </div>
         </div>
         <div class="id-card">
@@ -105,5 +107,19 @@ const IdRenderer = function (competitionId) {
         if (groupCode !== '') translation += `, ${i18n[lang].events.group} ${groupCode.substr(1)}`;
         if (attemptCode !== '') translation += `, ${i18n[lang].events.attempt} ${attemptCode.substr(1)}`;
         return translation;
+    }
+
+    this.renderCompetitionDate = () => {
+        const startDate = new Date(this.competitionData.start_date);
+        const endDate = new Date(this.competitionData.end_date);
+        if (startDate.getTime() === endDate.getTime()) {
+            return `${startDate.getDate()}.${startDate.getMonth()}.${startDate.getFullYear()}`;
+        } else if (startDate.getMonth() === startDate.getMonth()) {
+            return `${startDate.getDate()} - ${endDate.getDate()}.${startDate.getMonth()}.${startDate.getFullYear()}`;
+        } else if (startDate.getFullYear() === endDate.getFullYear()) {
+            return `${startDate.getDate()}.${startDate.getMonth()}. - ${endDate.getDate()}.${endDate.getMonth()}.${startDate.getFullYear()}`;
+        } else {
+            return `${startDate.getDate()}.${startDate.getMonth()}.${startDate.getFullYear()} - ${endDate.getDate()}.${endDate.getMonth()}.${endDate.getFullYear()}`;
+        }
     }
 }
