@@ -113,13 +113,13 @@ const IdRenderer = function (competitionId) {
         const startDate = new Date(this.competitionData.start_date);
         const endDate = new Date(this.competitionData.end_date);
         if (startDate.getTime() === endDate.getTime()) {
-            return `${startDate.getDate()}.${startDate.getMonth()}.${startDate.getFullYear()}`;
-        } else if (startDate.getMonth() === startDate.getMonth()) {
-            return `${startDate.getDate()} - ${endDate.getDate()}.${startDate.getMonth()}.${startDate.getFullYear()}`;
+            return `${startDate.getDate()}.${startDate.getMonth() + 1}.${startDate.getFullYear()}`;
+        } else if (startDate.getMonth() + 1 === startDate.getMonth() + 1) {
+            return `${startDate.getDate()} - ${endDate.getDate()}.${startDate.getMonth() + 1}.${startDate.getFullYear()}`;
         } else if (startDate.getFullYear() === endDate.getFullYear()) {
-            return `${startDate.getDate()}.${startDate.getMonth()}. - ${endDate.getDate()}.${endDate.getMonth()}.${startDate.getFullYear()}`;
+            return `${startDate.getDate()}.${startDate.getMonth() + 1}. - ${endDate.getDate()}.${endDate.getMonth() + 1}.${startDate.getFullYear()}`;
         } else {
-            return `${startDate.getDate()}.${startDate.getMonth()}.${startDate.getFullYear()} - ${endDate.getDate()}.${endDate.getMonth()}.${endDate.getFullYear()}`;
+            return `${startDate.getDate()}.${startDate.getMonth() + 1}.${startDate.getFullYear()} - ${endDate.getDate()}.${endDate.getMonth() + 1}.${endDate.getFullYear()}`;
         }
     }
 }
