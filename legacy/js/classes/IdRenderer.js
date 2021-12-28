@@ -77,7 +77,7 @@ const IdRenderer = function (competitionId) {
             activities.forEach(activity => {
                 const eventCode = activity.activity.activityCode.split('-')[0];
                 const start = new Date(activity.activity.startTime).toTimeString().substr(0,5);
-                html += `<p style="background: #2e588322;padding: 3px; margin: 1px 0"><span style="margin-right: 5px; font-size: 14px" class="cubing-icon event-${activity.activity.activityCode.split('-')[0]}"></span>${start} ${this.getRoleTranslation(activity.role, competitor, lang)} ${this.getActivityCodeTranslation(activity.activity.activityCode, lang)}</p>`
+                html += `<p style="background: ${this.getBackgroundForRole(activity.role)}33;padding: 3px; margin: 1px 0"><span style="margin-right: 5px; font-size: 14px" class="cubing-icon event-${activity.activity.activityCode.split('-')[0]}"></span>${start} ${this.getRoleTranslation(activity.role, competitor, lang)} ${this.getActivityCodeTranslation(activity.activity.activityCode, lang)}</p>`
             })
         })
         html += `<p style="position: absolute; bottom: 5px; left: 0; right: 0; text-align: center; font-size: 8px">${i18n[lang].assignments.notice}</p>`;
@@ -120,6 +120,20 @@ const IdRenderer = function (competitionId) {
             return `${startDate.getDate()}.${startDate.getMonth() + 1}. - ${endDate.getDate()}.${endDate.getMonth() + 1}.${startDate.getFullYear()}`;
         } else {
             return `${startDate.getDate()}.${startDate.getMonth() + 1}.${startDate.getFullYear()} - ${endDate.getDate()}.${endDate.getMonth() + 1}.${endDate.getFullYear()}`;
+        }
+    }
+
+    this.getBackgroundForRole = (role) => {
+        switch (role) {
+            case 'staff-scrambler':
+                return '#ca0000';
+            case 'staff-judge':
+                return '#fbe84e';
+            case 'staff-runner':
+                return '#77c729';
+            case 'competitor':
+            default:
+                return '#2e5883';
         }
     }
 }
