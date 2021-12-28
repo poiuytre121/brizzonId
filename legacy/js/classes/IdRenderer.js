@@ -54,7 +54,7 @@ const IdRenderer = function (competitionId) {
             </div>
         </div>
         <div class="id-card">
-            <div class="logo-bg" style="padding-top: 20px;">
+            <div class="logo-bg" style="padding-top: 30px;">
                 <p style="text-align: center; margin: 2px 0">${competitor.name}${ competitor.wcaId ? ', WCA ID: ' + competitor.wcaId : ''}</p>
                 ${this.createAssignementsSection(this.generator.getActivitiesForCompetitor(competitor.wcaId), competitor, lang)}
             </div>
