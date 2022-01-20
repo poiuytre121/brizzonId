@@ -88,11 +88,15 @@
             right: 3mm;
             left: 3mm;
             bottom: 3mm;
-            opacity: 0.20;
+            opacity: 0.2;
         }
 
         .logo {
             width: 40%;
+        }
+
+        .less-visible-logo-after::after {
+            opacity: 0.05;
         }
 
         .partner-logo {
@@ -117,7 +121,7 @@
 <div class="container">
     <script>
         const queryParam = (new URLSearchParams(window.location.search)).get('id');
-        const competitionId = queryParam ? queryParam : 'BrizzonSideOpenIII2021';
+        const competitionId = queryParam ? queryParam : 'BrizzonSideOpen2022';
         const renderer = new IdRenderer(competitionId);
         renderer.renderIds();
     </script>
