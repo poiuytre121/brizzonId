@@ -23,10 +23,10 @@ const IdRenderer = function (competitionId) {
         const lang = competitor.countryIso2 === 'PL' ? 'pl' : 'en';
 
         //roles
-        let roles = ['competitor_' + competitor.gender.toLowerCase()];
+        let roles = ['competitor'];
         roles.push(...competitor.roles);
         const rolesTexts = roles.map(function (role) {
-            return i18n[lang].roles[role];
+            return i18n[lang].roles[role + '_' + competitor.gender.toLowerCase()];
         });
 
         return `<div class="id-card">
@@ -54,7 +54,7 @@ const IdRenderer = function (competitionId) {
             </div>
         </div>
         <div class="id-card">
-            <div class="logo-bg" style="padding-top: 30px;">
+            <div class="logo-bg less-visible-logo-after" style="padding-top: 30px;">
                 <p style="text-align: center; margin: 2px 0">${competitor.name}${ competitor.wcaId ? ', WCA ID: ' + competitor.wcaId : ''}</p>
                 ${this.createAssignementsSection(this.generator.getActivitiesForCompetitor(competitor.wcaId), competitor, lang)}
             </div>
@@ -63,6 +63,7 @@ const IdRenderer = function (competitionId) {
 
     this.createAssignementsSection = (activities, competitor, lang) => {
         const groupedActivitiesMap = new Map();
+        const isShort = activities.length > 13;
         for (let i = 0; i < activities.length; i++) {
             const activityDate = activities[i].activity.startTime.substr(0,10);
             if (groupedActivitiesMap.has(activityDate)) {
@@ -77,7 +78,11 @@ const IdRenderer = function (competitionId) {
             activities.forEach(activity => {
                 const eventCode = activity.activity.activityCode.split('-')[0];
                 const start = new Date(activity.activity.startTime).toTimeString().substr(0,5);
-                html += `<p style="background: ${this.getBackgroundForRole(activity.role)}33;padding: 3px; margin: 1px 0"><span style="margin-right: 5px; font-size: 14px" class="cubing-icon event-${activity.activity.activityCode.split('-')[0]}"></span>${start} ${this.getRoleTranslation(activity.role, competitor, lang)} ${this.getActivityCodeTranslation(activity.activity.activityCode, lang)}</p>`
+                if (isShort) {
+                    html += `<p style="background: ${this.getBackgroundForRole(activity.role)}33;padding: 3px; margin: 1px 0; width: 50%; display: inline-block; box-sizing: border-box"><span style="margin-right: 5px; font-size: 14px" class="cubing-icon event-${activity.activity.activityCode.split('-')[0]}"></span>${start} ${this.getRoleTranslation(activity.role, competitor, lang)} ${this.getActivityCodeTranslation(activity.activity.activityCode, lang, true)}</p>`
+                } else {
+                    html += `<p style="background: ${this.getBackgroundForRole(activity.role)}33;padding: 3px; margin: 1px 0"><span style="margin-right: 5px; font-size: 14px" class="cubing-icon event-${activity.activity.activityCode.split('-')[0]}"></span>${start} ${this.getRoleTranslation(activity.role, competitor, lang)} ${this.getActivityCodeTranslation(activity.activity.activityCode, lang)}</p>`
+                }
             })
         })
         html += `<p style="position: absolute; bottom: 5px; left: 0; right: 0; text-align: center; font-size: 8px">${i18n[lang].assignments.notice}</p>`;
@@ -88,10 +93,10 @@ const IdRenderer = function (competitionId) {
         if (role === 'competitor') {
             role += '_' + competitor.gender.toLowerCase();
         }
-        return i18n[lang].roles[role];
+        return i18n[lang].staffing[role];
     }
 
-    this.getActivityCodeTranslation = (code, lang) => {
+    this.getActivityCodeTranslation = (code, lang, isShort = false) => {
         const codeSections = code.split('-');
         eventCode = codeSections[0];
         roundCode = codeSections[1];
@@ -103,9 +108,19 @@ const IdRenderer = function (competitionId) {
             attemptCode = codeSections[2];
         }
 
-        let translation = `${i18n[lang].events[eventCode]}, ${i18n[lang].events.round} ${roundCode.substr(1)}`;
-        if (groupCode !== '') translation += `, ${i18n[lang].events.group} ${groupCode.substr(1)}`;
-        if (attemptCode !== '') translation += `, ${i18n[lang].events.attempt} ${attemptCode.substr(1)}`;
+        let translation = '';
+        if (!isShort) {
+            translation += `${i18n[lang].events[eventCode]}, ${i18n[lang].events.round} ${roundCode.substr(1)}`;
+        } else {
+            translation += `${i18n[lang].events.round_short}${roundCode.substr(1)}`;
+        }
+
+        if (groupCode !== '' && !isShort) translation += `, ${i18n[lang].events.group} ${groupCode.substr(1)}`;
+        else if (groupCode !== '') translation += `, ${i18n[lang].events.group_short}${groupCode.substr(1)}`;
+
+        if (attemptCode !== '' && !isShort) translation += `, ${i18n[lang].events.attempt} ${attemptCode.substr(1)}`;
+        else if (attemptCode !== '') translation += `, ${i18n[lang].events.attempt_short}${attemptCode.substr(1)}`;
+
         return translation;
     }
 
