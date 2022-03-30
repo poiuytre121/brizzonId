@@ -13,6 +13,7 @@ const IdRenderer = function (competitionId) {
                 this.competitionData = res[1];
                 let container = document.querySelector(".container");
                 this.generator = new PersonalScheduleGenerator(this.wcif);
+                document.title = this.wcif.name;
                 for (let i = 0; i < this.wcif.persons.length; i++) {
                     container.innerHTML = container.innerHTML + this.createCard(this.wcif.persons[i]);
                 }
