@@ -37,7 +37,7 @@ const IdRenderer = function (competitionId) {
                 <div style="display: flex; align-items: center; justify-content: space-around; padding: 5px 0">
                     <div><p class="name" style="font-size: 28px; margin: 5px 0; text-align: center">${competitor.name}</p></div>
                 </div>
-                <div><p style="text-align: center; font-size: 20px" ">${rolesTexts.join(' / ')}</p></div>
+                <div><p style="text-align: center; font-size: 18px" ">${rolesTexts.join(' / ')}</p></div>
                 <h3 style="font-weight: 800; font-size: 12px; text-align: center; margin-bottom: 0">${i18n[lang].events.label}</h3>
                 <div class="events">
                     ${competitor.registration.eventIds.map(id => `<span class="cubing-icon event-${id}"></span>`).join(' ')}
@@ -130,7 +130,7 @@ const IdRenderer = function (competitionId) {
         const endDate = new Date(this.competitionData.end_date);
         if (startDate.getTime() === endDate.getTime()) {
             return `${startDate.getDate()}.${startDate.getMonth() + 1}.${startDate.getFullYear()}`;
-        } else if (startDate.getMonth() + 1 === startDate.getMonth() + 1) {
+        } else if (startDate.getMonth() === endDate.getMonth()) {
             return `${startDate.getDate()} - ${endDate.getDate()}.${startDate.getMonth() + 1}.${startDate.getFullYear()}`;
         } else if (startDate.getFullYear() === endDate.getFullYear()) {
             return `${startDate.getDate()}.${startDate.getMonth() + 1}. - ${endDate.getDate()}.${endDate.getMonth() + 1}.${startDate.getFullYear()}`;
