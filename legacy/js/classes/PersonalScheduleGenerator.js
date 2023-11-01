@@ -15,8 +15,8 @@ const PersonalScheduleGenerator = function (wcif) {
 
     this.activities = activities;
     this.wcif = wcif;
-    this.getActivitiesForCompetitor = (wcaId) => {
-        let person = this.wcif.persons.filter(person => person.wcaId === wcaId)[0];
+    this.getActivitiesForCompetitor = (id) => {
+        let person = this.wcif.persons.filter(person => person.wcaUserId === id)[0];
         return person.assignments.map(assignment => {
             return {
                 role: assignment.assignmentCode, activity: this.activities.get(assignment.activityId)
