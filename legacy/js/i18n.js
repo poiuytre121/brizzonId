@@ -42,6 +42,7 @@ const i18n = {
             "staff-scrambler": "Scrambling",
             "staff-runner": "Running",
             "staff-other": "Staffing",
+            "staff-delegate": "Delegating",
         },
         events: {
             label: 'Events',
@@ -114,6 +115,7 @@ const i18n = {
             "staff-scrambler": "Mieszanie",
             "staff-runner": "Bieganie",
             "staff-other": "Staffowanie",
+            "staff-delegate": "Delegowanie",
         },
         events: {
             label: 'Konkurencje',

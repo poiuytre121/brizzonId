@@ -147,6 +147,8 @@ const IdRenderer = function (competitionId) {
                 return '#fbe84e';
             case 'staff-runner':
                 return '#77c729';
+            case 'staff-delegate':
+                return '#29c7b5';
             case 'competitor':
             default:
                 return '#2e5883';
