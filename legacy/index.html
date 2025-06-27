@@ -50,7 +50,7 @@
         }
 
         .id-card::before {
-            background: linear-gradient(73deg, #fbe64f, #cc0001, #76c627);
+            background: linear-gradient(73deg, #f78c2c, #16193c);
             content: '';
             z-index: -1;
             position: absolute;
@@ -80,7 +80,7 @@
         }
 
         .logo-bg::after {
-            background: url("logo1.png") no-repeat center;
+            background: url("logo2.png") no-repeat center;
             content: '';
             z-index: -1;
             position: absolute;
@@ -88,7 +88,8 @@
             right: 3mm;
             left: 3mm;
             bottom: 3mm;
-            opacity: 0.2;
+            opacity: 0.1;
+            background-size: contain;
         }
 
         .logo {
@@ -121,7 +122,7 @@
 <div class="container">
     <script>
         const queryParam = (new URLSearchParams(window.location.search)).get('id');
-        const competitionId = queryParam ? queryParam : 'BrizzonSideOpen2022';
+        const competitionId = queryParam ? queryParam : 'WarmUpWarsaw2025';
         const renderer = new IdRenderer(competitionId);
         renderer.renderIds();
     </script>

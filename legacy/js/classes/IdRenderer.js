@@ -32,10 +32,10 @@ const IdRenderer = function (competitionId) {
 
         return `<div class="id-card">
             <div class="logo-bg">
-                <div style="text-align: center; padding-top: 5px"><img src="logo1.png" class="logo"></div>
-                <h1 style="font-size: 24px; text-align: center; font-family: apex; margin: 0 0 10px 0">${this.wcif.name}</h1>
+                <div style="text-align: center; padding-top: 20px"><img src="logo2.png" class="logo"></div>
+<!--                <h1 style="font-size: 24px; text-align: center; font-family: apex; margin: 0 0 10px 0">${this.wcif.name}</h1>-->
                 <div style="display: flex; align-items: center; justify-content: space-around; padding: 5px 0">
-                    <div><p class="name" style="font-size: 28px; margin: 5px 0; text-align: center">${competitor.name}</p></div>
+                    <div><p class="name" style="font-size: 28px; margin: 25px 0; text-align: center">${competitor.name}</p></div>
                 </div>
                 <div><p style="text-align: center; font-size: 18px" ">${rolesTexts.join(' / ')}</p></div>
                 <h3 style="font-weight: 800; font-size: 12px; text-align: center; margin-bottom: 0">${i18n[lang].events.label}</h3>
@@ -43,10 +43,10 @@ const IdRenderer = function (competitionId) {
                     ${competitor.registration.eventIds.map(id => `<span class="cubing-icon event-${id}"></span>`).join(' ')}
                 </div>
                 <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; margin-top: 10px">
-                    <img src="brizzon.png" class="partner-logo">
-                    <img src="halcube.png" class="partner-logo">
-                    <img src="speedcube.jpeg" class="partner-logo">
-                    <img src="quay.png" class="partner-logo">
+                    <img src="kraina.png" class="partner-logo">
+<!--                    <img src="halcube.png" class="partner-logo">-->
+<!--                    <img src="speedcube.jpeg" class="partner-logo">-->
+<!--                    <img src="quay.png" class="partner-logo">-->
                     <img src="pss.png" class="partner-logo">
                     <img src="wca.png" class="partner-logo">
                 </div>
